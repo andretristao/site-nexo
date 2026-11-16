@@ -330,7 +330,7 @@ function contato(base = '') {
             </div>
             <label for="f-assunto">Assunto<select id="f-assunto" name="assunto"><option>Novo projeto</option><option>BPO Financeiro</option><option>Cestas de Preços</option><option>NEXO Gov</option><option>IA e automação</option><option>Outro assunto</option></select></label>
             <label for="f-mensagem">Mensagem<textarea id="f-mensagem" name="mensagem" required maxlength="5000"></textarea></label>
-            <label class="hp" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
+            <div class="hp" aria-hidden="true"><label for="f-nx">Não preencha<input id="f-nx" name="nx_confirma" tabindex="-1" autocomplete="new-password"></label></div>
             <button class="btn btn-primary" type="submit">Enviar mensagem ${icon.arrow}</button>
             <p class="form-status" role="status" aria-live="polite" hidden></p>
             <p class="form-note">Respondemos em até um dia útil. Seus dados são usados só para responder ao contato, conforme a <a href="${base}privacy-policy/index.html">Política de privacidade</a>.</p>

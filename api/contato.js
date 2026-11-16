@@ -23,7 +23,10 @@ export default async function handler(req, res) {
   dados = dados || {};
 
   // Campo invisível para robôs: pessoas não preenchem. Se vier preenchido, finge sucesso.
-  if (limite(dados.site, 200)) return res.status(200).json({ ok: true });
+  if (limite(dados.nx_confirma, 200)) {
+    console.warn('Formulário de contato: descartado pelo campo anti-robô');
+    return res.status(200).json({ ok: true });
+  }
 
   const nome = limite(dados.nome, 120);
   const email = limite(dados.email, 160);
@@ -62,13 +65,20 @@ export default async function handler(req, res) {
   ].join('\n');
 
   try {
-    await transporte.sendMail({
+    const info = await transporte.sendMail({
       from: { name: 'Site Nexo Projetos', address: SMTP_USER },
       to: process.env.CONTATO_PARA || SMTP_USER,
       replyTo: { name: nome, address: email },
       subject: `Contato pelo site: ${assunto} · ${nome}`,
       text: texto
     });
+    // Registro para diagnóstico nos Logs da Vercel (sem o conteúdo da mensagem)
+    console.log('Formulário de contato: aceito pelo SMTP', JSON.stringify({
+      id: info.messageId, aceitos: info.accepted, recusados: info.rejected, resposta: info.response
+    }));
+    if (!info.accepted || info.accepted.length === 0) {
+      return res.status(502).json({ ok: false, erro: 'envio' });
+    }
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Formulário de contato: falha no envio', err && err.message);
