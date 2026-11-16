@@ -89,7 +89,7 @@ function card(p, base) {
         <div class="meta"><span class="status ${p.status}">${statusLabel(p)}</span><span>${esc(p.setor)}</span></div>
         <h3>${esc(p.nome)}</h3>
         <p>${esc(p.resumo)}</p>
-        <a class="more" href="${base}projetos/${p.slug}.html">Ver projeto ${icon.arrow}<span class="sr-only"> ${esc(p.nome)}</span></a>
+        <a class="more" href="${base}projetos/${p.slug}.html#topo">Ver projeto ${icon.arrow}<span class="sr-only"> ${esc(p.nome)}</span></a>
       </div>
     </article>`;
 }
@@ -126,6 +126,7 @@ function layout({ title, description, base, current, body }) {
   <style>.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}</style>
 </head>
 <body>
+  <span id="topo"></span>
   <a class="sr-only" href="#conteudo">Pular para o conteúdo</a>
   <header class="site-header">
     <nav class="wrap nav" aria-label="Principal">
@@ -149,7 +150,7 @@ ${body}
           <a class="logo" href="${base}index.html" aria-label="${SITE.nome}"><img src="${base}assets/logo-nexo-branca.png" alt="Nexo" width="98" height="30"></a>
           <p style="max-width:320px">Projetos, sistemas e operações que fazem empresas e órgãos públicos funcionarem melhor.</p>
         </div>
-        <div><h4>Projetos</h4><ul>${projetos.map(p => `<li><a href="${base}projetos/${p.slug}.html">${esc(p.nome)}</a></li>`).join('')}</ul></div>
+        <div><h4>Projetos</h4><ul>${projetos.map(p => `<li><a href="${base}projetos/${p.slug}.html#topo">${esc(p.nome)}</a></li>`).join('')}</ul></div>
         <div><h4>Soluções</h4><ul><li><a href="${base}index.html#solucoes">BPO e finanças</a></li><li><a href="${base}index.html#solucoes">Setor público</a></li><li><a href="${base}index.html#solucoes">IA e automação</a></li><li><a href="${base}index.html#solucoes">Sistemas sob medida</a></li></ul></div>
         <div><h4>Recursos</h4><ul><li><a href="${base}index.html#recursos">Guias</a></li><li><a href="${base}index.html#faq">Perguntas frequentes</a></li></ul></div>
         <div><h4>Empresa</h4><ul><li><a href="${base}index.html#empresa">Sobre a Nexo</a></li><li><a href="${base}index.html#contato">Contato</a></li><li><a href="mailto:${SITE.email}">${SITE.email}</a></li></ul></div>
@@ -377,8 +378,8 @@ function paginaProjeto(p, i) {
 
     <section class="next-projects">
       <div class="wrap next-grid">
-        <a class="next-card" href="${ant.slug}.html"><div><small>Projeto anterior</small><h3>${esc(ant.nome)}</h3></div><span class="arrow-circle">${icon.left}</span></a>
-        <a class="next-card" href="${prox.slug}.html"><div><small>Próximo projeto</small><h3>${esc(prox.nome)}</h3></div><span class="arrow-circle">${icon.right}</span></a>
+        <a class="next-card" href="${ant.slug}.html#topo"><div><small>Projeto anterior</small><h3>${esc(ant.nome)}</h3></div><span class="arrow-circle">${icon.left}</span></a>
+        <a class="next-card" href="${prox.slug}.html#topo"><div><small>Próximo projeto</small><h3>${esc(prox.nome)}</h3></div><span class="arrow-circle">${icon.right}</span></a>
       </div>
     </section>
 

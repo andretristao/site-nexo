@@ -1,8 +1,26 @@
 // Nexo Projetos · interações do site
 (function () {
-  // Cada página abre no topo (o navegador às vezes guarda a posição da rolagem)
+  // Cada página abre no topo. Alguns visualizadores (como a prévia em moldura)
+  // guardam a rolagem da página anterior, por isso o topo é forçado algumas vezes.
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  if (!location.hash || location.hash === '#topo') {
+    const root = document.documentElement;
+    let userMoved = false;
+    ['wheel', 'touchstart', 'keydown'].forEach(ev => window.addEventListener(ev, () => { userMoved = true; }, { once: true, passive: true }));
+    const toTop = () => {
+      if (userMoved) return;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      root.scrollTop = 0; document.body.scrollTop = 0;
+      const anchor = document.getElementById('topo');
+      if (anchor && anchor.scrollIntoView) anchor.scrollIntoView({ block: 'start', behavior: 'instant' });
+      root.style.scrollBehavior = prev;
+    };
+    toTop();
+    window.addEventListener('load', toTop);
+    [60, 250, 600].forEach(t => setTimeout(toTop, t));
+  }
 
   const header = document.querySelector('.site-header');
   const onScroll = () => header && header.classList.toggle('scrolled', window.scrollY > 8);
