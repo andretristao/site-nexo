@@ -134,6 +134,12 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 .p-card.cta-card h3 { font-size: 32px; }
 .p-card.cta-card .more { color: #fff; }
 
+/* Grade de projetos: dois cards por linha, o convite no fim centralizado */
+.p-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.p-grid .p-card { flex: none; }
+.p-grid .p-card .preview { height: 280px; }
+.p-grid .cta-card { grid-column: 1 / -1; justify-self: center; width: calc(50% - 12px); min-height: 300px; align-items: center; text-align: center; gap: 20px; }
+
 /* Mini telas dos cards */
 .mock-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
 .mock-top b { font-size: 13px; font-family: var(--display); }
@@ -236,7 +242,9 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 
 /* Rodapé */
 .site-footer { background: var(--night); color: rgba(255,255,255,.7); padding: 72px 0 32px; font-size: 15px; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr repeat(4, minmax(0, 1fr)); gap: 40px; }
+.footer-grid > div { min-width: 0; }
+.site-footer a, .contact-list a { overflow-wrap: anywhere; }
 .site-footer .logo { color: #fff; margin-bottom: 18px; }
 .site-footer h4 { font-family: var(--font); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
@@ -249,6 +257,7 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 .p-hero { padding: 56px 0 0; }
 .p-hero h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; margin: 20px 0 20px; max-width: 900px; }
 .p-hero .lead { max-width: 720px; }
+.p-note { margin-top: 16px; max-width: 720px; font-size: 14px; color: var(--ink-3); padding-left: 14px; border-left: 2px solid var(--line); }
 .p-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 48px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .p-facts div { padding: 22px 24px; border-left: 1px solid var(--line); }
 .p-facts div:first-child { border-left: 0; }
@@ -288,8 +297,7 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 .next-card .arrow-circle { width: 48px; height: 48px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; flex: none; }
 
 /* Página de todos os projetos */
-.all-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 48px 0 112px; }
-.all-grid .p-card { flex: none; }
+.all-grid { padding: 48px 0 112px; }
 .all-wrap { background: var(--night); color: #fff; }
 
 /* Animação ao rolar */
@@ -306,7 +314,6 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
   .footer-grid > div:first-child { grid-column: 1 / -1; }
   .p-body { grid-template-columns: 1fr; gap: 0; padding-top: 64px; }
   .p-toc { display: none; }
-  .all-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 860px) {
   .nav-links, .nav-cta { display: none; }
@@ -327,7 +334,9 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
   .form .row { grid-template-columns: 1fr; }
   .p-showcase { padding: 20px; border-radius: 20px; }
   .p-showcase .preview { height: 280px; padding: 18px; }
-  .all-grid { grid-template-columns: 1fr; }
+  .p-grid { grid-template-columns: 1fr; gap: 20px; }
+  .p-grid .cta-card { width: 100%; }
+  .p-grid .p-card .preview { height: 240px; }
 }
 @media (max-width: 560px) {
   .wrap { padding: 0 16px; }

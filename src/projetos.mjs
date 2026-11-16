@@ -1,6 +1,7 @@
 // Conteúdo dos projetos. Cada item gera um card na home e uma página em /projetos/<slug>.html.
 // Para incluir um projeto novo, copie um bloco, troque o slug e rode `node src/build.mjs`.
 // status: "operacao" (em operação) ou "andamento" (em andamento)
+// aviso (opcional): nota abaixo do título, usada para deixar claro que um nome citado não é cliente
 // statusTexto (opcional): troca o rótulo do status, por exemplo "MVP funcional"
 // preview: tipo da mini tela do card: "bpo", "cestas", "licitacoes", "bndes", "cemig", "gov"
 
@@ -89,6 +90,7 @@ export const projetos = [
     preview: 'bndes',
     resumo: 'Plataforma de auditoria clínica que confere solicitações médicas contra as Diretrizes de Utilização da ANS e emite parecer técnico em tempo real.',
     chamada: 'Proposta da Nexo para o Desafio Inteligência de Dados em Saúde do BNDES (CPSI nº 001/2026): auditoria clínica automatizada com base nas regras DUT/ANS.',
+    aviso: 'Solução apresentada pela Nexo ao Desafio Inteligência de Dados em Saúde do BNDES (CPSI nº 001/2026). O nome do BNDES é citado só como referência ao desafio e não indica contrato, parceria ou endosso.',
     fatos: { cliente: 'BNDES Saúde (CPSI 001/2026)', modelo: 'Licenciamento SaaS', entrega: 'MVP pronto para prova de conceito' },
     desafio: [
       'A auditoria clínica costuma ser manual e lenta. Os auditores médicos precisam validar um grande volume de solicitações frente às Diretrizes de Utilização (DUT) da ANS, buscando evidências espalhadas no histórico de cada beneficiário.',
@@ -116,6 +118,7 @@ export const projetos = [
     preview: 'cemig',
     resumo: 'IA que executa os testes de efetividade dos controles SOx a partir das evidências e monitora a execução dos controles de forma contínua.',
     chamada: 'Proposta da Nexo para o Desafio 8 do Inova Cemig.Lab: automação dos testes de efetividade e do monitoramento contínuo dos controles SOx.',
+    aviso: 'Solução inscrita pela Nexo no Desafio 8 do Inova Cemig.Lab, Ciclo 5. O nome da CEMIG é citado só como referência ao desafio e não indica contrato, parceria ou endosso.',
     fatos: { cliente: 'Inova Cemig.Lab · Desafio 8', modelo: 'Plataforma com IA', entrega: 'Protótipo funcional (TRL 5)' },
     desafio: [
       'Os testes de efetividade operacional (TOE) dos controles SOx são feitos por amostragem, com apoio de contratos terceirizados, a partir de evidências em formatos muito diferentes: PDFs, planilhas, prints de tela do SAP e e-mails de aprovação.',

@@ -1,5 +1,9 @@
 // Nexo Projetos · interações do site
 (function () {
+  // Cada página abre no topo (o navegador às vezes guarda a posição da rolagem)
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
   const header = document.querySelector('.site-header');
   const onScroll = () => header && header.classList.toggle('scrolled', window.scrollY > 8);
   onScroll();

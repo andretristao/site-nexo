@@ -225,21 +225,16 @@ const home = layout({
       </div>
     </section>
 
-    <section class="section projects" id="projetos" data-rail>
-      <div class="wrap section-head">
-        <div class="reveal"><span class="eyebrow">Projetos</span><h2>O que já está rodando, e o que vem por aí.</h2></div>
-        <div class="rail-controls">
-          <span class="rail-count" aria-live="polite"></span>
-          <button class="rail-btn" type="button" data-prev aria-label="Projeto anterior">${icon.left}</button>
-          <button class="rail-btn" type="button" data-next aria-label="Próximo projeto">${icon.right}</button>
+    <section class="section projects" id="projetos">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><span class="eyebrow">Projetos</span><h2>O que já está rodando, e o que vem por aí.</h2></div>
+          <p>Clique em um projeto para ver o desafio, a solução e o que foi entregue.</p>
         </div>
-      </div>
-      <div class="rail" tabindex="0" aria-label="Lista de projetos, use as setas para navegar">
-        ${projetos.map(p => card(p, '')).join('\n        ')}
-        ${ctaCard('')}
-      </div>
-      <div class="wrap"><div class="rail-progress"><i></i></div>
-        <p style="margin-top:28px"><a class="btn btn-outline-light" href="projetos/index.html">Ver todos os projetos ${icon.arrow}</a></p>
+        <div class="p-grid">
+          ${projetos.map(p => card(p, '')).join('\n          ')}
+          ${ctaCard('')}
+        </div>
       </div>
     </section>
 
@@ -355,6 +350,7 @@ function paginaProjeto(p, i) {
         <div style="margin-top:28px"><span class="status ${p.status}" style="background:${p.status === 'andamento' ? '#fdf3df' : 'var(--brand-soft)'};color:${p.status === 'andamento' ? '#8a5a00' : 'var(--brand-strong)'}">${statusLabel(p)}</span></div>
         <h1>${esc(p.nome)}</h1>
         <p class="lead">${esc(p.chamada)}</p>
+        ${p.aviso ? `<p class="p-note">${esc(p.aviso)}</p>` : ''}
         <div class="p-facts">
           <div><small>Cliente</small><b>${esc(p.fatos.cliente)}</b></div>
           <div><small>Setor</small><b>${esc(p.setor)}</b></div>
@@ -403,7 +399,7 @@ const todos = layout({
         <span class="eyebrow" style="color:#8cc2ef;margin-top:28px">Projetos</span>
         <h1 style="font-size:clamp(40px,6vw,72px);font-weight:800;margin:16px 0 18px">Nosso portfólio.</h1>
         <p class="lead" style="color:rgba(255,255,255,.7);max-width:640px">${nOper} projetos em operação e ${nAnd} em andamento. Clique em um card para ver os detalhes.</p>
-        <div class="all-grid">
+        <div class="p-grid all-grid">
           ${projetos.map(p => card(p, '../')).join('\n          ')}
           ${ctaCard('../')}
         </div>
