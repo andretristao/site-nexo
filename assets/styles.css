@@ -249,6 +249,7 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 .site-footer h4 { font-family: var(--font); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .site-footer a:hover { color: #fff; }
+.footer-legal { display: flex; gap: 24px; flex-wrap: wrap; }
 .footer-bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--night-line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 14px; }
 
 /* Página de projeto */
