@@ -1,0 +1,9 @@
+{
+  "name": "site-nexo",
+  "private": true,
+  "type": "module",
+  "description": "Site institucional da Nexo Projetos. As páginas são estáticas; api/contato.js envia o formulário de contato por e-mail.",
+  "dependencies": {
+    "nodemailer": "10.3.1"
+  }
+}

@@ -303,10 +303,10 @@ const home = layout({
       </div>
     </section>
 
-    ${contato()}`
+    ${contato('')}`
 });
 
-function contato() {
+function contato(base = '') {
   return `<section class="cta" id="contato">
       <div class="wrap">
         <div class="cta-box">
@@ -319,16 +319,21 @@ function contato() {
               <li>${icon.pin}Atendimento em todo o Brasil</li>
             </ul>
           </div>
-          <form class="form" data-contact-form data-to="${SITE.email}">
+          <form class="form" data-contact-form data-to="${SITE.email}" novalidate>
             <div class="row">
-              <label>Nome<input name="nome" required autocomplete="name"></label>
-              <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
+              <label for="f-nome">Nome<input id="f-nome" name="nome" required maxlength="120" autocomplete="name"></label>
+              <label for="f-email">E-mail<input id="f-email" name="email" type="email" required maxlength="160" autocomplete="email"></label>
             </div>
-            <label>Empresa ou órgão<input name="empresa" autocomplete="organization"></label>
-            <label>Assunto<select name="assunto"><option>Novo projeto</option><option>BPO Financeiro</option><option>Cestas de Preços</option><option>NEXO Gov</option><option>IA e automação</option><option>Outro assunto</option></select></label>
-            <label>Mensagem<textarea name="mensagem" required></textarea></label>
+            <div class="row">
+              <label for="f-empresa">Empresa ou órgão<input id="f-empresa" name="empresa" maxlength="160" autocomplete="organization"></label>
+              <label for="f-telefone">Telefone ou WhatsApp<input id="f-telefone" name="telefone" type="tel" maxlength="40" autocomplete="tel"></label>
+            </div>
+            <label for="f-assunto">Assunto<select id="f-assunto" name="assunto"><option>Novo projeto</option><option>BPO Financeiro</option><option>Cestas de Preços</option><option>NEXO Gov</option><option>IA e automação</option><option>Outro assunto</option></select></label>
+            <label for="f-mensagem">Mensagem<textarea id="f-mensagem" name="mensagem" required maxlength="5000"></textarea></label>
+            <label class="hp" aria-hidden="true">Site<input name="site" tabindex="-1" autocomplete="off"></label>
             <button class="btn btn-primary" type="submit">Enviar mensagem ${icon.arrow}</button>
-            <p class="form-note">Ao enviar, abrimos o seu e-mail com a mensagem pronta.</p>
+            <p class="form-status" role="status" aria-live="polite" hidden></p>
+            <p class="form-note">Respondemos em até um dia útil. Seus dados são usados só para responder ao contato, conforme a <a href="${base}privacy-policy/index.html">Política de privacidade</a>.</p>
           </form>
         </div>
       </div>
@@ -384,7 +389,7 @@ function paginaProjeto(p, i) {
       </div>
     </section>
 
-    ${contato().replace(/href="mailto/g, 'href="mailto')}`
+    ${contato('../')}`
   });
 }
 
