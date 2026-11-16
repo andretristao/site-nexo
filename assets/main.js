@@ -111,16 +111,44 @@
     map.forEach((_, id) => { const s = document.getElementById(id); s && io2.observe(s); });
   }
 
-  // Formulário de contato: abre o e-mail do visitante com a mensagem pronta
+  // Formulário de contato: envia para /api/contato, que manda o e-mail pelo servidor
   const form = document.querySelector('[data-contact-form]');
   if (form) {
-    form.addEventListener('submit', e => {
+    const status = form.querySelector('.form-status');
+    const botao = form.querySelector('button[type="submit"]');
+    const textoBotao = botao.innerHTML;
+    const to = form.getAttribute('data-to');
+    const mostrar = (tipo, html) => { status.hidden = false; status.className = 'form-status ' + tipo; status.innerHTML = html; };
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      const d = new FormData(form);
-      const to = form.getAttribute('data-to');
-      const subject = `Contato pelo site: ${d.get('assunto') || 'Novo projeto'}`;
-      const body = `Nome: ${d.get('nome')}\nEmpresa ou órgão: ${d.get('empresa') || '-'}\nE-mail: ${d.get('email')}\n\n${d.get('mensagem')}`;
-      window.location.href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      if (!form.checkValidity()) {
+        const invalido = form.querySelector(':invalid');
+        mostrar('erro', 'Preencha nome, um e-mail válido e a mensagem.');
+        invalido && invalido.focus();
+        return;
+      }
+      botao.disabled = true;
+      botao.textContent = 'Enviando…';
+      mostrar('info', 'Enviando sua mensagem…');
+      try {
+        const resp = await fetch('/api/contato', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
+        });
+        const r = await resp.json().catch(() => ({}));
+        if (!resp.ok || !r.ok) throw new Error(r.erro || 'falha');
+        form.reset();
+        mostrar('ok', 'Mensagem enviada. Obrigado! Respondemos em até um dia útil.');
+      } catch (err) {
+        const msg = err.message === 'campos'
+          ? 'Confira nome, e-mail e mensagem e tente de novo.'
+          : `Não conseguimos enviar agora. Tente de novo em instantes ou escreva direto para <a href="mailto:${to}">${to}</a>.`;
+        mostrar('erro', msg);
+      } finally {
+        botao.disabled = false;
+        botao.innerHTML = textoBotao;
+      }
     });
   }
 

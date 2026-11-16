@@ -238,7 +238,14 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 .form input:focus, .form textarea:focus, .form select:focus { outline: 2px solid var(--brand); outline-offset: 0; border-color: transparent; }
 .form textarea { min-height: 96px; resize: vertical; }
 .form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-note { font-size: 13px; color: var(--ink-3); }
+.form-note, .cta-box .form-note { font-size: 13px; color: var(--ink-3); }
+.form-note a { color: var(--brand); text-decoration: underline; }
+.cta-box .form-status, .form-status { font-size: 14px; padding: 12px 14px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); color: var(--ink-2); }
+.cta-box .form-status.ok, .form-status.ok { background: #e7f6ee; border-color: #b9e3cb; color: #17603a; }
+.cta-box .form-status.erro, .form-status.erro { background: #fdeceb; border-color: #f4c7c3; color: #9a2a1f; }
+.form-status a { color: inherit; text-decoration: underline; overflow-wrap: anywhere; }
+.form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.btn:disabled { opacity: .7; cursor: progress; transform: none; }
 
 /* Rodapé */
 .site-footer { background: var(--night); color: rgba(255,255,255,.7); padding: 72px 0 32px; font-size: 15px; }

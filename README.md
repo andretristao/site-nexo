@@ -12,6 +12,7 @@ Site institucional estático (HTML, CSS e JavaScript puros), sem dependências.
 - `src/legal.mjs`: texto dos Termos de uso e da Política de privacidade
 - `termos-de-uso/` e `privacy-policy/`: páginas legais (geradas), nos mesmos endereços do site anterior
 - `src/build.mjs`: gera as páginas a partir do conteúdo
+- `api/contato.js`: função da Vercel que envia o formulário de contato por e-mail (SMTP da Hostinger)
 
 ## Editar ou incluir um projeto
 
@@ -25,4 +26,16 @@ Qualquer hospedagem estática serve (Vercel, Netlify, GitHub Pages). Não há et
 
 ## Pendências
 
-- O formulário de contato abre o e-mail do visitante. Para receber as mensagens direto, ligar a um serviço de formulários ou webhook.
+
+## Formulário de contato
+
+O formulário envia para `/api/contato`, que manda o e-mail pela conta da Nexo na Hostinger. Configure na Vercel (Settings → Environment Variables, ambiente Production):
+
+| Variável | Valor |
+|---|---|
+| `SMTP_USER` | `projetos@nexoprojetosdesign.com.br` |
+| `SMTP_PASS` | a senha dessa conta de e-mail |
+
+Opcionais: `SMTP_HOST` (padrão `smtp.hostinger.com`), `SMTP_PORT` (padrão `465`) e `CONTATO_PARA` (quem recebe; padrão é o próprio `SMTP_USER`). Depois de salvar as variáveis, faça um Redeploy.
+
+A mensagem chega com o visitante no "Responder a", então basta responder o e-mail. Se o envio falhar, o formulário mostra o erro e o endereço de e-mail para contato direto.
