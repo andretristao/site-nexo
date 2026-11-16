@@ -8,7 +8,7 @@ import { projetos } from './projetos.mjs';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = {
   nome: 'Nexo Projetos',
-  email: 'contato@nexoprojetos.com.br', // TODO: confirmar o e-mail oficial
+  email: 'projetos@nexoprojetosdesign.com.br',
   descricao: 'Projetos, sistemas e operações para empresas e órgãos públicos: BPO financeiro, cestas de preços, plataformas digitais e gestão de projetos.'
 };
 
