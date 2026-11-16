@@ -70,7 +70,7 @@ function preview(tipo, nome) {
           <div><span>Exame genético</span><span>Não atendido</span><span>Glosa</span></div>
           <div><span>Fisioterapia</span><span>Atendido</span><span>Aprovação</span></div>
         </div>`;
-    case 'cemig':
+    case 'controles':
       return `${top('Teste de efetividade', 'Controles SOx')}
         <div class="mock-gauge"><div class="mock-ring" style="background:conic-gradient(var(--brand) 0 72%,#8cb4e6 72% 90%,#dde4f0 90% 100%)"><span>72%</span></div>
         <div class="mock-legend"><div>Conforme · 72%</div><div>Exceção, com evidência · 18%</div><div>Inconclusivo, para revisão · 10%</div></div></div>`;
@@ -175,7 +175,7 @@ const solucoes = [
 ];
 
 const faq = [
-  ['Que tipo de cliente a Nexo atende?', 'Indústrias, comércios, profissionais liberais e empresas de tecnologia, além do setor público, como prefeituras, câmaras e conselhos. Também apresentamos soluções em desafios de inovação aberta, como os do BNDES e da CEMIG.'],
+  ['Que tipo de cliente a Nexo atende?', 'Indústrias, comércios, profissionais liberais e empresas de tecnologia, além do setor público, como prefeituras, câmaras e conselhos. Também apresentamos soluções em desafios de inovação aberta, como o do BNDES Saúde.'],
   ['A Nexo desenvolve sistemas ou presta serviço?', 'Os dois. Temos plataformas próprias, como a NEXO Preços e o NEXO Gov, e também operamos rotinas para o cliente, como no BPO Financeiro.'],
   ['As soluções para o setor público seguem a Lei 14.133?', 'Sim. A NEXO Preços foi feita para a pesquisa de preços prevista na Lei 14.133/2021, com fontes oficiais como o PNCP e o Compras.gov.'],
   ['Como funciona o início de um projeto?', 'Começamos com uma conversa para entender o problema. Depois fazemos um diagnóstico, apresentamos a proposta com etapas e prazos, e só então iniciamos a execução.'],
@@ -221,7 +221,7 @@ const home = layout({
     <section class="strip" aria-label="Onde atuamos">
       <div class="wrap strip-inner">
         <span class="strip-label">Soluções para desafios e setores como</span>
-        <div class="strip-items"><span>BNDES Saúde</span><span>Inova Cemig.Lab</span><span>Prefeituras</span><span>Licitações públicas</span><span>Indústria e comércio</span></div>
+        <div class="strip-items"><span>BNDES Saúde</span><span>Setor elétrico</span><span>Prefeituras</span><span>Licitações públicas</span><span>Indústria e comércio</span></div>
       </div>
     </section>
 

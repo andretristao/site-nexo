@@ -23,5 +23,4 @@ Qualquer hospedagem estática serve (Vercel, Netlify, GitHub Pages). Não há et
 
 ## Pendências
 
-- Revisar os textos dos projetos BNDES e CEMIG com os detalhes reais.
 - O formulário de contato abre o e-mail do visitante. Para receber as mensagens direto, ligar a um serviço de formulários ou webhook.

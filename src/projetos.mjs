@@ -3,7 +3,7 @@
 // status: "operacao" (em operação) ou "andamento" (em andamento)
 // aviso (opcional): nota abaixo do título, usada para deixar claro que um nome citado não é cliente
 // statusTexto (opcional): troca o rótulo do status, por exemplo "MVP funcional"
-// preview: tipo da mini tela do card: "bpo", "cestas", "licitacoes", "bndes", "cemig", "gov"
+// preview: tipo da mini tela do card: "bpo", "cestas", "licitacoes", "bndes", "controles", "gov"
 
 export const projetos = [
   {
@@ -110,16 +110,15 @@ export const projetos = [
     tecnologias: ['DUT/ANS', 'Motor de regras', 'Workflows (n8n)', 'Webhooks e APIs', 'Banco em nuvem']
   },
   {
-    slug: 'cemig',
-    nome: 'NEXO Controles · CEMIG',
+    slug: 'nexo-controles',
+    nome: 'NEXO Controles',
     setor: 'Energia · Auditoria SOx',
     status: 'andamento',
     statusTexto: 'Protótipo',
-    preview: 'cemig',
+    preview: 'controles',
     resumo: 'IA que executa os testes de efetividade dos controles SOx a partir das evidências e monitora a execução dos controles de forma contínua.',
-    chamada: 'Proposta da Nexo para o Desafio 8 do Inova Cemig.Lab: automação dos testes de efetividade e do monitoramento contínuo dos controles SOx.',
-    aviso: 'Solução inscrita pela Nexo no Desafio 8 do Inova Cemig.Lab, Ciclo 5. O nome da CEMIG é citado só como referência ao desafio e não indica contrato, parceria ou endosso.',
-    fatos: { cliente: 'Inova Cemig.Lab · Desafio 8', modelo: 'Plataforma com IA', entrega: 'Protótipo funcional (TRL 5)' },
+    chamada: 'Automação dos testes de efetividade e do monitoramento contínuo dos controles SOx, desenvolvida para um desafio de inovação aberta do setor elétrico.',
+    fatos: { cliente: 'Desafio de inovação do setor elétrico', modelo: 'Plataforma com IA', entrega: 'Protótipo funcional (TRL 5)' },
     desafio: [
       'Os testes de efetividade operacional (TOE) dos controles SOx são feitos por amostragem, com apoio de contratos terceirizados, a partir de evidências em formatos muito diferentes: PDFs, planilhas, prints de tela do SAP e e-mails de aprovação.',
       'O processo é caro, demorado e não garante que a mesma regra seja aplicada sempre da mesma forma.'
