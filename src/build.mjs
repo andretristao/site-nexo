@@ -14,7 +14,7 @@ const SITE = {
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const pad = n => String(n).padStart(2, '0');
-const statusLabel = s => (s === 'andamento' ? 'Em andamento' : 'Em operação');
+const statusLabel = p => p.statusTexto || (p.status === 'andamento' ? 'Em andamento' : 'Em operação');
 
 // Logo: assets/logo-nexo.png (fundo claro) e assets/logo-nexo-branca.png (fundo escuro).
 
@@ -53,18 +53,27 @@ function preview(tipo, nome) {
           <div><span>Cadeira giratória</span><span>7</span><span>R$ 612,40</span></div>
           <div><span>Álcool 70% 1L</span><span>15</span><span>R$ 8,75</span></div>
         </div>`;
-    case 'bndes':
-      return `${top('Etapas do projeto', 'Avanço físico')}
+    case 'licitacoes':
+      return `${top('Análise do edital', 'Pregão eletrônico')}
         <div class="mock-flow">
-          <div class="mock-step done"><i>✓</i>Plano de trabalho<span class="mock-line"></span></div>
-          <div class="mock-step done"><i>✓</i>Estruturação técnica<span class="mock-line"></span></div>
-          <div class="mock-step"><i>3</i>Execução<span class="mock-line" style="background:linear-gradient(90deg,var(--brand) 60%,#dde4f0 60%)"></span></div>
-          <div class="mock-step"><i>4</i>Prestação de contas<span class="mock-line"></span></div>
+          <div class="mock-step done"><i>✓</i>Requisitos de habilitação<span class="mock-line"></span></div>
+          <div class="mock-step done"><i>✓</i>Prazos e riscos<span class="mock-line"></span></div>
+          <div class="mock-step"><i>!</i>Certidão vencida<span class="mock-line" style="background:#f6dfb0"></span></div>
+          <div class="mock-step done"><i>✓</i>Veredito: viável<span class="mock-line"></span></div>
+        </div>`;
+    case 'bndes':
+      return `${top('Parecer técnico', 'Regras DUT/ANS')}
+        <div class="mock-table">
+          <div><span>Guia</span><span>Critério</span><span>Parecer</span></div>
+          <div><span>Ressonância magnética</span><span>Atendido</span><span>Aprovação</span></div>
+          <div><span>Cirurgia de joelho</span><span>Pendente</span><span>Laudo</span></div>
+          <div><span>Exame genético</span><span>Não atendido</span><span>Glosa</span></div>
+          <div><span>Fisioterapia</span><span>Atendido</span><span>Aprovação</span></div>
         </div>`;
     case 'cemig':
-      return `${top('Indicadores', 'Mês atual')}
-        <div class="mock-gauge"><div class="mock-ring"><span>72%</span></div>
-        <div class="mock-legend"><div>Atividades concluídas</div><div>Em execução</div><div>Planejadas</div></div></div>`;
+      return `${top('Teste de efetividade', 'Controles SOx')}
+        <div class="mock-gauge"><div class="mock-ring" style="background:conic-gradient(var(--brand) 0 72%,#8cb4e6 72% 90%,#dde4f0 90% 100%)"><span>72%</span></div>
+        <div class="mock-legend"><div>Conforme · 72%</div><div>Exceção, com evidência · 18%</div><div>Inconclusivo, para revisão · 10%</div></div></div>`;
     case 'gov':
       return `${top('Painel do órgão', 'Módulos ativos')}
         <div class="mock-grid">${['Diário Oficial', 'Transparência', 'PNCP', 'Cesta de preços', 'Ouvidoria', 'Protocolo'].map((m, i) => `<div class="${i < 4 ? 'on' : ''}"><i></i><small style="font-size:10px;font-weight:600">${m}</small></div>`).join('')}</div>`;
@@ -77,7 +86,7 @@ function card(p, base) {
   return `<article class="p-card">
       <div class="preview" aria-hidden="true">${preview(p.preview, p.nome)}</div>
       <div class="body">
-        <div class="meta"><span class="status ${p.status}">${statusLabel(p.status)}</span><span>${esc(p.setor)}</span></div>
+        <div class="meta"><span class="status ${p.status}">${statusLabel(p)}</span><span>${esc(p.setor)}</span></div>
         <h3>${esc(p.nome)}</h3>
         <p>${esc(p.resumo)}</p>
         <a class="more" href="${base}projetos/${p.slug}.html">Ver projeto ${icon.arrow}<span class="sr-only"> ${esc(p.nome)}</span></a>
@@ -141,7 +150,7 @@ ${body}
           <p style="max-width:320px">Projetos, sistemas e operações que fazem empresas e órgãos públicos funcionarem melhor.</p>
         </div>
         <div><h4>Projetos</h4><ul>${projetos.map(p => `<li><a href="${base}projetos/${p.slug}.html">${esc(p.nome)}</a></li>`).join('')}</ul></div>
-        <div><h4>Soluções</h4><ul><li><a href="${base}index.html#solucoes">BPO e finanças</a></li><li><a href="${base}index.html#solucoes">Setor público</a></li><li><a href="${base}index.html#solucoes">Sistemas sob medida</a></li><li><a href="${base}index.html#solucoes">Gestão de projetos</a></li></ul></div>
+        <div><h4>Soluções</h4><ul><li><a href="${base}index.html#solucoes">BPO e finanças</a></li><li><a href="${base}index.html#solucoes">Setor público</a></li><li><a href="${base}index.html#solucoes">IA e automação</a></li><li><a href="${base}index.html#solucoes">Sistemas sob medida</a></li></ul></div>
         <div><h4>Recursos</h4><ul><li><a href="${base}index.html#recursos">Guias</a></li><li><a href="${base}index.html#faq">Perguntas frequentes</a></li></ul></div>
         <div><h4>Empresa</h4><ul><li><a href="${base}index.html#empresa">Sobre a Nexo</a></li><li><a href="${base}index.html#contato">Contato</a></li><li><a href="mailto:${SITE.email}">${SITE.email}</a></li></ul></div>
       </div>
@@ -161,12 +170,12 @@ const nAnd = projetos.filter(p => p.status === 'andamento').length;
 const solucoes = [
   [icon.chart, 'BPO e finanças', 'Operamos o financeiro da sua empresa com processo, rotina e relatórios claros.', ['Contas a pagar e receber', 'Conciliação', 'Fluxo de caixa', 'Relatórios']],
   [icon.gov, 'Setor público', 'Ferramentas para compras públicas, transparência e serviços digitais, dentro da lei.', ['Lei 14.133', 'Cestas de preços', 'PNCP', 'LGPD']],
-  [icon.code, 'Sistemas sob medida', 'Plataformas web desenhadas para o seu processo, seguras e fáceis de usar.', ['Plataformas web', 'Automação', 'Integrações', 'Painéis']],
-  [icon.flag, 'Gestão de projetos', 'Estruturação, acompanhamento e prestação de contas de projetos com várias etapas.', ['Planejamento', 'Indicadores', 'Prestação de contas']]
+  [icon.code, 'IA e automação', 'Leitura e conferência de documentos com IA, motores de regras auditáveis e fluxos automatizados.', ['IA multimodal', 'Motor de regras', 'n8n e webhooks', 'Trilha de auditoria']],
+  [icon.flag, 'Sistemas sob medida', 'Plataformas web, e-commerce e painéis de gestão desenhados para o seu processo.', ['Plataformas web', 'E-commerce', 'Integrações', 'Painéis']]
 ];
 
 const faq = [
-  ['Que tipo de cliente a Nexo atende?', 'Empresas privadas de pequeno e médio porte e órgãos públicos, como prefeituras, câmaras e conselhos. Também atuamos em projetos com grandes instituições, como BNDES e CEMIG.'],
+  ['Que tipo de cliente a Nexo atende?', 'Indústrias, comércios, profissionais liberais e empresas de tecnologia, além do setor público, como prefeituras, câmaras e conselhos. Também apresentamos soluções em desafios de inovação aberta, como os do BNDES e da CEMIG.'],
   ['A Nexo desenvolve sistemas ou presta serviço?', 'Os dois. Temos plataformas próprias, como a NEXO Preços e o NEXO Gov, e também operamos rotinas para o cliente, como no BPO Financeiro.'],
   ['As soluções para o setor público seguem a Lei 14.133?', 'Sim. A NEXO Preços foi feita para a pesquisa de preços prevista na Lei 14.133/2021, com fontes oficiais como o PNCP e o Compras.gov.'],
   ['Como funciona o início de um projeto?', 'Começamos com uma conversa para entender o problema. Depois fazemos um diagnóstico, apresentamos a proposta com etapas e prazos, e só então iniciamos a execução.'],
@@ -211,8 +220,8 @@ const home = layout({
 
     <section class="strip" aria-label="Onde atuamos">
       <div class="wrap strip-inner">
-        <span class="strip-label">Projetos com instituições e setores como</span>
-        <div class="strip-items"><span>BNDES</span><span>CEMIG</span><span>Prefeituras</span><span>Câmaras municipais</span><span>Empresas privadas</span></div>
+        <span class="strip-label">Soluções para desafios e setores como</span>
+        <div class="strip-items"><span>BNDES Saúde</span><span>Inova Cemig.Lab</span><span>Prefeituras</span><span>Licitações públicas</span><span>Indústria e comércio</span></div>
       </div>
     </section>
 
@@ -277,7 +286,8 @@ const home = layout({
         <div class="reveal">
           <span class="eyebrow">Empresa</span>
           <h2>Gestão, tecnologia e processo no mesmo time.</h2>
-          <p class="lead">A Nexo Projetos une gestão, tecnologia e conhecimento de processos públicos e privados. A gente não entrega só o sistema ou só o relatório: entrega o resultado funcionando.</p>
+          <p class="lead">A Nexo Projetos foi constituída em 2024, mas a história começa antes. O fundador foi pioneiro no desenvolvimento de sites e e-commerce no Brasil e passou anos construindo, em modelo white-label, a base de software de projetos vendidos por outras empresas.</p>
+          <p class="lead" style="margin-top:16px">Hoje a Nexo assina as próprias soluções: sistemas sob medida, automação de processos com IA e plataformas digitais para empresas privadas e órgãos públicos.</p>
         </div>
         <div class="values">
           <div class="value reveal"><span class="dot-icon">${icon.flag}</span><div><h3>Foco no resultado</h3><p>Cada projeto tem metas claras e é medido por elas.</p></div></div>
@@ -318,7 +328,7 @@ function contato() {
               <label>E-mail<input name="email" type="email" required autocomplete="email"></label>
             </div>
             <label>Empresa ou órgão<input name="empresa" autocomplete="organization"></label>
-            <label>Assunto<select name="assunto"><option>Novo projeto</option><option>BPO Financeiro</option><option>Cestas de Preços</option><option>NEXO Gov</option><option>Outro assunto</option></select></label>
+            <label>Assunto<select name="assunto"><option>Novo projeto</option><option>BPO Financeiro</option><option>Cestas de Preços</option><option>NEXO Gov</option><option>IA e automação</option><option>Outro assunto</option></select></label>
             <label>Mensagem<textarea name="mensagem" required></textarea></label>
             <button class="btn btn-primary" type="submit">Enviar mensagem ${icon.arrow}</button>
             <p class="form-note">Ao enviar, abrimos o seu e-mail com a mensagem pronta.</p>
@@ -342,7 +352,7 @@ function paginaProjeto(p, i) {
     <section class="p-hero">
       <div class="wrap">
         <nav class="crumbs" aria-label="Caminho"><a href="${base}index.html">Início</a><span>/</span><a href="${base}projetos/index.html">Projetos</a><span>/</span><span aria-current="page">${esc(p.nome)}</span></nav>
-        <div style="margin-top:28px"><span class="status ${p.status}" style="background:${p.status === 'andamento' ? '#fdf3df' : 'var(--brand-soft)'};color:${p.status === 'andamento' ? '#8a5a00' : 'var(--brand-strong)'}">${statusLabel(p.status)}</span></div>
+        <div style="margin-top:28px"><span class="status ${p.status}" style="background:${p.status === 'andamento' ? '#fdf3df' : 'var(--brand-soft)'};color:${p.status === 'andamento' ? '#8a5a00' : 'var(--brand-strong)'}">${statusLabel(p)}</span></div>
         <h1>${esc(p.nome)}</h1>
         <p class="lead">${esc(p.chamada)}</p>
         <div class="p-facts">

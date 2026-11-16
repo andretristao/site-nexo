@@ -1,7 +1,8 @@
 // Conteúdo dos projetos. Cada item gera um card na home e uma página em /projetos/<slug>.html.
 // Para incluir um projeto novo, copie um bloco, troque o slug e rode `node src/build.mjs`.
 // status: "operacao" (em operação) ou "andamento" (em andamento)
-// preview: tipo da mini tela do card: "bpo", "cestas", "bndes", "cemig", "gov", "protocolo"
+// statusTexto (opcional): troca o rótulo do status, por exemplo "MVP funcional"
+// preview: tipo da mini tela do card: "bpo", "cestas", "licitacoes", "bndes", "cemig", "gov"
 
 export const projetos = [
   {
@@ -55,54 +56,83 @@ export const projetos = [
     tecnologias: ['Lei 14.133/2021', 'PNCP', 'Compras.gov', 'CATMAT e CATSER', 'Supabase', 'React']
   },
   {
-    slug: 'bndes',
-    nome: 'BNDES',
-    setor: 'Desenvolvimento econômico',
+    slug: 'licitacoes-com-ia',
+    nome: 'Licitações com IA',
+    setor: 'Compras públicas',
     status: 'operacao',
-    preview: 'bndes',
-    resumo: 'Projeto desenvolvido junto ao BNDES, com estruturação técnica, acompanhamento de etapas e prestação de contas organizada.',
-    chamada: 'Estruturação e acompanhamento de projeto junto ao Banco Nacional de Desenvolvimento Econômico e Social.',
-    fatos: { cliente: 'BNDES', modelo: 'Projeto com etapas', entrega: 'Documentação e acompanhamento' },
+    preview: 'licitacoes',
+    resumo: 'Plataforma de gestão de licitações que lê editais com IA, confere a documentação da empresa e organiza prazos, resultados e comissões.',
+    chamada: 'Leitura automática de editais e conferência de documentos para quem participa de licitações públicas.',
+    fatos: { cliente: 'Consultoria especializada em licitações', modelo: 'Plataforma web com IA', entrega: 'Em operação' },
     desafio: [
-      'Projetos com o BNDES exigem documentação técnica consistente, cronograma claro e prestação de contas a cada etapa.',
-      'Era preciso organizar todas as frentes do projeto em um só lugar, com responsáveis e prazos visíveis para todos os envolvidos.'
+      'Quem participa de licitações precisa ler editais longos, extrair requisitos de habilitação, prazos e riscos, e conferir se a empresa tem todos os documentos exigidos.',
+      'Feito à mão, esse trabalho consome horas por edital e abre espaço para erros que custam a desclassificação.'
     ],
     solucao: [
-      'A Nexo estruturou o projeto em etapas com entregas definidas, centralizou a documentação e montou um acompanhamento que mostra o avanço físico e financeiro de cada fase.'
+      'A plataforma faz a análise automática do edital, com extração de requisitos, prazos, riscos e um veredito de viabilidade. Os documentos da empresa ficam num só lugar e passam por um checklist automático de conformidade contra as exigências de cada edital.'
     ],
     recursos: [
-      ['Estruturação técnica', 'Escopo, cronograma e plano de trabalho organizados conforme as exigências do banco.'],
-      ['Gestão de etapas', 'Marcos, responsáveis e prazos acompanhados em um só painel.'],
-      ['Prestação de contas', 'Relatórios de execução e documentos comprobatórios organizados por etapa.'],
-      ['Comunicação com as partes', 'Reuniões e registros de decisões para manter todos alinhados.']
+      ['Análise automática de editais', 'Requisitos de habilitação, prazos, riscos e veredito de viabilidade extraídos pela IA.'],
+      ['Meus Documentos', 'Documentos da empresa organizados e conferidos contra cada edital, com checklist de conformidade.'],
+      ['Agenda e acompanhamento', 'Prazos, licitações suspensas, resultados e comissões em um painel.'],
+      ['Chat com o edital', 'Perguntas em linguagem natural sobre o conteúdo do edital.']
     ],
-    entregas: ['Plano de trabalho e cronograma', 'Painel de acompanhamento de etapas', 'Relatórios de execução', 'Dossiê de prestação de contas'],
-    tecnologias: ['Gestão de projetos', 'Painéis de acompanhamento', 'Gestão documental']
+    entregas: ['Plataforma web em operação', 'Análise de editais com IA', 'Checklist automático de conformidade documental', 'Controle de resultados e comissões'],
+    tecnologias: ['IA generativa', 'Leitura de PDFs', 'React e TypeScript', 'Supabase', 'n8n']
+  },
+  {
+    slug: 'bndes',
+    nome: 'Auditoria Clínica · BNDES',
+    setor: 'Saúde suplementar',
+    status: 'andamento',
+    statusTexto: 'MVP funcional',
+    preview: 'bndes',
+    resumo: 'Plataforma de auditoria clínica que confere solicitações médicas contra as Diretrizes de Utilização da ANS e emite parecer técnico em tempo real.',
+    chamada: 'Proposta da Nexo para o Desafio Inteligência de Dados em Saúde do BNDES (CPSI nº 001/2026): auditoria clínica automatizada com base nas regras DUT/ANS.',
+    fatos: { cliente: 'BNDES Saúde (CPSI 001/2026)', modelo: 'Licenciamento SaaS', entrega: 'MVP pronto para prova de conceito' },
+    desafio: [
+      'A auditoria clínica costuma ser manual e lenta. Os auditores médicos precisam validar um grande volume de solicitações frente às Diretrizes de Utilização (DUT) da ANS, buscando evidências espalhadas no histórico de cada beneficiário.',
+      'O resultado são filas de análise, risco de inconformidade regulatória e pouco tempo da equipe médica para os casos realmente complexos.'
+    ],
+    solucao: [
+      'As regras DUT/ANS foram parametrizadas num motor de regras. A plataforma cruza a guia solicitada com a trilha assistencial do beneficiário, verifica os critérios de elegibilidade e emite um parecer técnico automatizado.',
+      'Cada demanda é classificada como Aprovação Rápida, Solicitação de Laudo Complementar ou Glosa Técnica, e a equipe médica fica livre para as exceções de alta complexidade.'
+    ],
+    recursos: [
+      ['Interface para auditores', 'Portais onde auditores e gestores veem as solicitações e os pareceres em tempo real.'],
+      ['Motor de regras DUT/ANS', 'Regras desenhadas em fluxos visuais, que podem ser ajustadas sem reescrever o sistema.'],
+      ['Dados com rastreabilidade', 'Histórico assistencial e documentos armazenados em nuvem, com registro de tudo.'],
+      ['Alertas e integrações', 'Webhooks e APIs que avisam a equipe sobre gargalos, aprovações e glosas.']
+    ],
+    entregas: ['Setup e parametrização da infraestrutura', 'Motor de regras DUT/ANS', 'Painéis e alertas integrados', 'Operação assistida e treinamento da equipe médica'],
+    tecnologias: ['DUT/ANS', 'Motor de regras', 'Workflows (n8n)', 'Webhooks e APIs', 'Banco em nuvem']
   },
   {
     slug: 'cemig',
-    nome: 'CEMIG',
-    setor: 'Energia',
-    status: 'operacao',
+    nome: 'NEXO Controles · CEMIG',
+    setor: 'Energia · Auditoria SOx',
+    status: 'andamento',
+    statusTexto: 'Protótipo',
     preview: 'cemig',
-    resumo: 'Projeto para a CEMIG no setor de energia, com processos mapeados, indicadores de acompanhamento e entregas por etapa.',
-    chamada: 'Projeto desenvolvido para a Companhia Energética de Minas Gerais, com foco em processo e indicadores.',
-    fatos: { cliente: 'CEMIG', modelo: 'Projeto com etapas', entrega: 'Processos e indicadores' },
+    resumo: 'IA que executa os testes de efetividade dos controles SOx a partir das evidências e monitora a execução dos controles de forma contínua.',
+    chamada: 'Proposta da Nexo para o Desafio 8 do Inova Cemig.Lab: automação dos testes de efetividade e do monitoramento contínuo dos controles SOx.',
+    fatos: { cliente: 'Inova Cemig.Lab · Desafio 8', modelo: 'Plataforma com IA', entrega: 'Protótipo funcional (TRL 5)' },
     desafio: [
-      'Uma empresa do porte da CEMIG lida com muitas áreas, contratos e exigências regulatórias ao mesmo tempo.',
-      'O projeto precisava dar clareza ao andamento das atividades e transformar dados operacionais em indicadores que apoiam a gestão.'
+      'Os testes de efetividade operacional (TOE) dos controles SOx são feitos por amostragem, com apoio de contratos terceirizados, a partir de evidências em formatos muito diferentes: PDFs, planilhas, prints de tela do SAP e e-mails de aprovação.',
+      'O processo é caro, demorado e não garante que a mesma regra seja aplicada sempre da mesma forma.'
     ],
     solucao: [
-      'A Nexo mapeou os processos envolvidos, definiu indicadores de acompanhamento e organizou as entregas em etapas validadas com a equipe da CEMIG.'
+      'A IA lê a matriz de controles e o teste de desenho de cada controle e gera uma Ficha de Controle, que o auditor aprova uma vez. A partir daí, a plataforma coleta as evidências no SharePoint, executa o teste e classifica cada verificação como Conforme, Exceção ou Inconclusivo, sempre com justificativa e citação da evidência.',
+      'Os casos inconclusivos vão para revisão humana. O teste deixa de ser por amostragem anual e passa a cobrir 100% da população, na frequência do próprio controle.'
     ],
     recursos: [
-      ['Mapeamento de processos', 'Fluxos documentados com responsáveis, entradas e saídas de cada etapa.'],
-      ['Indicadores de gestão', 'Métricas definidas com a equipe e acompanhadas em painel.'],
-      ['Entregas validadas', 'Cada fase revisada e aprovada antes de seguir para a próxima.'],
-      ['Documentação técnica', 'Registro completo para consulta e continuidade do trabalho.']
+      ['Ficha de Controle', 'Objetivo, risco, frequência, responsável e critérios de exceção extraídos pela IA e aprovados pelo auditor.'],
+      ['Leitura multimodal de evidências', 'PDFs, planilhas, imagens, prints de tela e logs, com vínculo à origem de cada dado.'],
+      ['Papéis de trabalho automáticos', 'Passo a passo do teste, evidências referenciadas e conclusão, no modelo da Auditoria Interna.'],
+      ['Monitoramento contínuo', 'Painel de controles executados, atrasados ou com exceção, com alertas aos responsáveis.']
     ],
-    entregas: ['Mapa de processos', 'Painel de indicadores', 'Relatórios por etapa', 'Documentação técnica final'],
-    tecnologias: ['Mapeamento de processos', 'Painéis de indicadores', 'Gestão de projetos']
+    entregas: ['Protótipo funcional validado com dados simulados', 'Geração da Ficha de Controle', 'Execução do teste com exceções justificadas', 'Papel de trabalho gerado automaticamente'],
+    tecnologias: ['SOx', 'IA multimodal', 'SharePoint / Microsoft Graph', 'React e TypeScript', 'Postgres', 'Trilha de auditoria imutável', 'LGPD']
   },
   {
     slug: 'nexo-gov',
