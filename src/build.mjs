@@ -4,6 +4,7 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projetos } from './projetos.mjs';
+import { paginasLegais } from './legal.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = {
@@ -155,7 +156,7 @@ ${body}
         <div><h4>Recursos</h4><ul><li><a href="${base}index.html#recursos">Guias</a></li><li><a href="${base}index.html#faq">Perguntas frequentes</a></li></ul></div>
         <div><h4>Empresa</h4><ul><li><a href="${base}index.html#empresa">Sobre a Nexo</a></li><li><a href="${base}index.html#contato">Contato</a></li><li><a href="mailto:${SITE.email}">${SITE.email}</a></li></ul></div>
       </div>
-      <div class="footer-bottom"><span>© <span data-year>2026</span> Nexo Projetos e Mídias Digitais LTDA</span><nav class="footer-legal" aria-label="Documentos legais"><a href="https://nexoprojetosdesign.com.br/termos-de-uso/">Termos de uso</a><a href="https://nexoprojetosdesign.com.br/privacy-policy/">Política de privacidade</a></nav></div>
+      <div class="footer-bottom"><span>© <span data-year>2026</span> Nexo Projetos e Mídias Digitais LTDA</span><nav class="footer-legal" aria-label="Documentos legais"><a href="${base}termos-de-uso/index.html">Termos de uso</a><a href="${base}privacy-policy/index.html">Política de privacidade</a></nav></div>
     </div>
   </footer>
   <script src="${base}assets/main.js" defer></script>
@@ -408,8 +409,62 @@ const todos = layout({
     </section>`
 });
 
+// ---------- Páginas legais ----------
+function inline(t) {
+  return esc(t)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+@[^`]+)`/g, '<a href="mailto:$1">$1</a>')
+    .replace(/`([^`]+)`/g, '<b>$1</b>');
+}
+function markdown(md) {
+  const out = []; let list = null;
+  const close = () => { if (list) { out.push(list.html + (list.sub ? '</ul></li>' : '</li>') + `</${list.tag}>`); list = null; } };
+  for (const raw of md.trim().split('\n')) {
+    const line = raw.replace(/\s+$/, '');
+    let m;
+    if (!line.trim()) { close(); continue; }
+    if ((m = line.match(/^## (.+)/))) { close(); out.push(`<h2>${inline(m[1])}</h2>`); continue; }
+    if ((m = line.match(/^  - (.+)/)) && list) {
+      if (!list.sub) { list.html += '<ul>'; list.sub = true; }
+      list.html += `<li>${inline(m[1])}</li>`; continue;
+    }
+    if ((m = line.match(/^(-|1\.) (.+)/))) {
+      const tag = m[1] === '-' ? 'ul' : 'ol';
+      if (list && list.tag !== tag) close();
+      if (!list) list = { tag, html: `<${tag}>`, first: true, sub: false };
+      else list.html += list.sub ? '</ul></li>' : '</li>';
+      list.sub = false; list.html += `<li>${inline(m[2])}`; continue;
+    }
+    close(); out.push(`<p>${inline(line)}</p>`);
+  }
+  close();
+  return out.join('\n          ');
+}
+function paginaLegal(pg) {
+  return layout({
+    title: `${pg.titulo} · ${SITE.nome}`,
+    description: `${pg.titulo} do site da ${SITE.nome}.`,
+    base: '../',
+    current: '',
+    body: `
+    <section class="p-hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Caminho"><a href="../index.html">Início</a><span>/</span><span aria-current="page">${esc(pg.titulo)}</span></nav>
+        <h1 style="font-size:clamp(36px,5vw,56px)">${esc(pg.titulo)}</h1>
+        <p class="lead">Última atualização: ${esc(pg.atualizacao)}</p>
+      </div>
+    </section>
+    <section class="wrap">
+      <article class="legal">
+          ${markdown(pg.texto)}
+      </article>
+    </section>`
+  });
+}
+
 mkdirSync(join(root, 'projetos'), { recursive: true });
 writeFileSync(join(root, 'index.html'), home);
 writeFileSync(join(root, 'projetos/index.html'), todos);
 projetos.forEach((p, i) => writeFileSync(join(root, `projetos/${p.slug}.html`), paginaProjeto(p, i)));
-console.log(`Gerado: index.html, projetos/index.html e ${projetos.length} páginas de projeto.`);
+paginasLegais.forEach(pg => { mkdirSync(join(root, pg.pasta), { recursive: true }); writeFileSync(join(root, `${pg.pasta}/index.html`), paginaLegal(pg)); });
+console.log(`Gerado: index.html, projetos/index.html, ${projetos.length} páginas de projeto e ${paginasLegais.length} páginas legais.`);

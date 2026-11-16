@@ -297,6 +297,16 @@ a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
 .next-card h3 { font-size: 24px; }
 .next-card .arrow-circle { width: 48px; height: 48px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; flex: none; }
 
+/* Páginas legais */
+.legal { max-width: 760px; padding: 48px 0 112px; color: var(--ink-2); font-size: 17px; }
+.legal h2 { font-size: 24px; color: var(--ink); margin: 48px 0 16px; }
+.legal h2:first-child { margin-top: 0; }
+.legal p + p { margin-top: 14px; }
+.legal ul, .legal ol { margin: 14px 0; padding-left: 22px; display: grid; gap: 10px; }
+.legal li ul { margin-top: 10px; }
+.legal strong, .legal b { color: var(--ink); }
+.legal a { color: var(--brand); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+
 /* Página de todos os projetos */
 .all-grid { padding: 48px 0 112px; }
 .all-wrap { background: var(--night); color: #fff; }

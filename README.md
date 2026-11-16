@@ -9,6 +9,8 @@ Site institucional estático (HTML, CSS e JavaScript puros), sem dependências.
 - `projetos/<slug>.html`: página de detalhe de cada projeto (gerada)
 - `assets/`: estilos, script, logo e favicon
 - `src/projetos.mjs`: conteúdo de cada projeto (é aqui que se edita)
+- `src/legal.mjs`: texto dos Termos de uso e da Política de privacidade
+- `termos-de-uso/` e `privacy-policy/`: páginas legais (geradas), nos mesmos endereços do site anterior
 - `src/build.mjs`: gera as páginas a partir do conteúdo
 
 ## Editar ou incluir um projeto
